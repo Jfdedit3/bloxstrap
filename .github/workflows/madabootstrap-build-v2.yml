@@ -1,0 +1,41 @@
+name: MadaBootstrap Build v2
+
+on:
+  push:
+    branches:
+      - rebrand-madabootstrap
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./MadaBootstrap
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Show SDK info
+        run: dotnet --info
+
+      - name: Restore
+        run: dotnet restore MadaBootstrap.csproj
+
+      - name: Build
+        run: dotnet build MadaBootstrap.csproj -c Release --no-restore
+
+      - name: Publish
+        run: dotnet publish MadaBootstrap.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o ../publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MadaBootstrap-v2-win-x64
+          path: publish/*

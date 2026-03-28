@@ -1,0 +1,49 @@
+name: MadaBootstrap Build v3
+
+on:
+  push:
+    branches:
+      - rebrand-madabootstrap
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Disable root global.json for MadaBootstrap build
+        shell: pwsh
+        run: |
+          if (Test-Path "global.json") {
+            Rename-Item "global.json" "global.json.disabled"
+          }
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Show SDK info
+        shell: pwsh
+        run: dotnet --info
+
+      - name: Restore
+        shell: pwsh
+        run: dotnet restore .\MadaBootstrap\MadaBootstrap.csproj
+
+      - name: Build
+        shell: pwsh
+        run: dotnet build .\MadaBootstrap\MadaBootstrap.csproj -c Release --no-restore
+
+      - name: Publish
+        shell: pwsh
+        run: dotnet publish .\MadaBootstrap\MadaBootstrap.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o .\publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MadaBootstrap-v3-win-x64
+          path: .\publish\*

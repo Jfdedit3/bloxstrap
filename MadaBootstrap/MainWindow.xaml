@@ -1,0 +1,188 @@
+<Window x:Class="MadaBootstrap.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MadaBootstrap"
+        Width="960"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="#0F1117"
+        Foreground="White">
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" CornerRadius="18" Background="#171B24" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="MadaBootstrap" FontSize="28" FontWeight="Bold"/>
+                    <TextBlock Text="Custom Roblox launcher for Windows"
+                               Margin="0,6,0,0"
+                               Foreground="#AAB3C5"
+                               FontSize="14"/>
+                </StackPanel>
+
+                <Border Grid.Column="1"
+                        Background="#222938"
+                        CornerRadius="12"
+                        Padding="14,8"
+                        VerticalAlignment="Center">
+                    <TextBlock x:Name="StatusText"
+                               Text="Status: idle"
+                               Foreground="#8BE9FD"
+                               FontWeight="SemiBold"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="18"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Background="#171B24" CornerRadius="18" Padding="18">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Launcher" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock Text="Detected Roblox client path"
+                                   Margin="0,14,0,6"
+                                   Foreground="#AAB3C5"/>
+                        <TextBox x:Name="ClientPathBox"
+                                 Height="38"
+                                 Background="#10141C"
+                                 Foreground="White"
+                                 BorderBrush="#2D3648"
+                                 CaretBrush="White"
+                                 Padding="10"/>
+
+                        <WrapPanel Margin="0,12,0,0">
+                            <Button x:Name="DetectButton"
+                                    Content="Detect client"
+                                    Width="150"
+                                    Height="40"
+                                    Margin="0,0,10,10"
+                                    Click="DetectButton_Click"/>
+                            <Button x:Name="LaunchButton"
+                                    Content="Launch Roblox"
+                                    Width="150"
+                                    Height="40"
+                                    Margin="0,0,10,10"
+                                    Click="LaunchButton_Click"/>
+                            <Button x:Name="OpenFolderButton"
+                                    Content="Open Roblox folder"
+                                    Width="170"
+                                    Height="40"
+                                    Margin="0,0,10,10"
+                                    Click="OpenFolderButton_Click"/>
+                        </WrapPanel>
+
+                        <Separator Margin="0,18,0,18" Background="#2D3648"/>
+
+                        <TextBlock Text="Join a place" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock Text="Place ID"
+                                   Margin="0,14,0,6"
+                                   Foreground="#AAB3C5"/>
+                        <TextBox x:Name="PlaceIdBox"
+                                 Height="38"
+                                 Background="#10141C"
+                                 Foreground="White"
+                                 BorderBrush="#2D3648"
+                                 CaretBrush="White"
+                                 Padding="10"/>
+
+                        <WrapPanel Margin="0,12,0,0">
+                            <Button x:Name="JoinPlaceButton"
+                                    Content="Join place"
+                                    Width="150"
+                                    Height="40"
+                                    Margin="0,0,10,10"
+                                    Click="JoinPlaceButton_Click"/>
+                        </WrapPanel>
+
+                        <Separator Margin="0,18,0,18" Background="#2D3648"/>
+
+                        <TextBlock Text="Options" FontSize="20" FontWeight="Bold"/>
+
+                        <CheckBox x:Name="AutoCloseCheck"
+                                  Content="Close launcher after launch"
+                                  Margin="0,14,0,8"
+                                  Foreground="White"/>
+
+                        <CheckBox x:Name="UseProtocolCheck"
+                                  Content="Use Roblox protocol for place joins"
+                                  Margin="0,0,0,8"
+                                  Foreground="White"/>
+
+                        <CheckBox x:Name="WriteClientSettingsCheck"
+                                  Content="Write ClientAppSettings.json on launch"
+                                  Margin="0,0,0,8"
+                                  Foreground="White"/>
+
+                        <WrapPanel Margin="0,16,0,0">
+                            <Button x:Name="SaveButton"
+                                    Content="Save settings"
+                                    Width="150"
+                                    Height="40"
+                                    Margin="0,0,10,10"
+                                    Click="SaveButton_Click"/>
+                            <Button x:Name="WriteSettingsNowButton"
+                                    Content="Write client settings now"
+                                    Width="190"
+                                    Height="40"
+                                    Margin="0,0,10,10"
+                                    Click="WriteSettingsNowButton_Click"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Column="2" Background="#171B24" CornerRadius="18" Padding="18">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="ClientAppSettings.json"
+                               FontSize="20"
+                               FontWeight="Bold"/>
+
+                    <TextBox Grid.Row="2"
+                             x:Name="ClientSettingsBox"
+                             AcceptsReturn="True"
+                             AcceptsTab="True"
+                             VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Auto"
+                             TextWrapping="NoWrap"
+                             Background="#10141C"
+                             Foreground="White"
+                             BorderBrush="#2D3648"
+                             CaretBrush="White"
+                             FontFamily="Consolas"
+                             FontSize="14"
+                             Padding="14"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="4" Background="#171B24" CornerRadius="18" Padding="14">
+            <TextBlock x:Name="FooterText"
+                       Text="Ready."
+                       Foreground="#AAB3C5"/>
+        </Border>
+    </Grid>
+</Window>
